@@ -62,7 +62,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist .eslintcache",
     "check": "npm run clean && npm run build && npm run prettier && npm run lint && npm test",
     "lint": "eslint --ext .ts --cache src",
     "lint:fix": "npm run lint -- --fix",

@@ -9,7 +9,7 @@ module.exports = {
     project: ["./tsconfig.json"],
     ecmaVersion: 2015,
   },
-  ignorePatterns: ["./bin"],
+  ignorePatterns: ["./bin", ".eslintrc.js"],
   plugins: [
     "@typescript-eslint",
     "jest",
