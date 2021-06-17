@@ -4,20 +4,6 @@
   "description": "Gotify JS Client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "clean": "rimraf dist",
-    "check": "npm run clean && npm run build && npm run prettier && npm run lint && npm test",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "npm run lint -- --fix",
-    "prepare": "husky install",
-    "prepublishOnly": "npm run check",
-    "prettier": "prettier --check . '!dist/**'",
-    "prettier:fix": "prettier --write . '!dist/**'",
-    "release": "np",
-    "test": "jest",
-    "test:watch": "jest --watch"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tomsquest/gotify.git"
@@ -39,8 +25,14 @@
     "rootDir": "src"
   },
   "lint-staged": {
-    "*.{js,json,ts,md}": "npm run prettier:fix --",
-    "*.ts": "npm run lint:fix --"
+    "*.{js,json,md}": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix --cache",
+      "jest --bail --findRelatedTests"
+    ]
   },
   "devDependencies": {
     "@types/jest": "26.0.23",
@@ -67,5 +59,19 @@
   },
   "np": {
     "releaseDraft": false
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "check": "npm run clean && npm run build && npm run prettier && npm run lint && npm test",
+    "lint": "eslint --ext .ts --cache src",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install",
+    "prepublishOnly": "npm run check",
+    "prettier": "prettier --check . '!dist/**'",
+    "prettier:fix": "prettier --write . '!dist/**'",
+    "release": "np",
+    "test": "jest",
+    "test:watch": "jest --watch"
   }
 }
