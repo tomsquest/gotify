@@ -9,6 +9,20 @@ export type Message = {
   message: string;
   title?: string;
   priority?: number;
+  extras?: {
+    // Allow unknown extras
+    [key: string]: unknown;
+    // Add the known extras from https://gotify.net/docs/msgextras
+    "client::display"?: {
+      contentType: "text/plain" | "text/markdown" | string;
+    };
+    "client::notification"?: {
+      click: { url: string };
+    };
+    "android::action"?: {
+      onReceive: { intentUrl: string };
+    };
+  };
 };
 
 export type MessageResponse = {
@@ -42,6 +56,7 @@ export class Gotify {
           message: message.message,
           title: message.title,
           priority: message.priority,
+          extras: message.extras,
         },
       })
       .json<MessageResponse>();

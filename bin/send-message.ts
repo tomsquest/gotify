@@ -1,3 +1,4 @@
+#!npx ts-node
 import { Gotify, gotify } from "../src";
 
 const main = async (): Promise<void> => {
@@ -7,9 +8,25 @@ const main = async (): Promise<void> => {
   await gotify({
     server: server,
     app: app,
-    title: "Title",
-    message: `Here is a message!`,
+    title: "A Markdown message",
+    message: `This is a **message** with the ![Gotify Logo](https://raw.githubusercontent.com/gotify/logo/master/gotify-logo-small.png)!`,
     priority: 5,
+    // Extras are defined here https://gotify.net/docs/msgextras
+    extras: {
+      // Format message as markdown
+      "client::display": {
+        contentType: "text/markdown",
+      },
+      // Opens the URL on notification click.
+      "client::notification": {
+        click: { url: "https://github.com/gotify" },
+      },
+      // Opens the URL after the notification was delivered.
+      // Only works when the gotify app is in focus (limitation of android)
+      "android::action": {
+        onReceive: { intentUrl: "https://gotify.net" },
+      },
+    },
   });
 
   /*

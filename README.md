@@ -64,23 +64,51 @@ await client.send({
 });
 ```
 
+To add [message Extras](https://gotify.net/docs/msgextras), simply pass them (TypeScript should autocomplete the known extras):
+
+```js
+await gotify({
+  server: server,
+  app: app,
+  title: "A Markdown message",
+  message: `This is a **message** with the ![Gotify Logo](https://raw.githubusercontent.com/gotify/logo/master/gotify-logo-small.png)!`,
+  priority: 5,
+  // Extras are defined here https://gotify.net/docs/msgextras
+  extras: {
+    // Format message as markdown
+    "client::display": {
+      contentType: "text/markdown",
+    },
+    // Opens the URL on notification click.
+    "client::notification": {
+      click: { url: "https://github.com/gotify" },
+    },
+    // Opens the URL after the notification was delivered.
+    // Only works when the gotify app is in focus (limitation of android)
+    "android::action": {
+      onReceive: { intentUrl: "https://gotify.net" },
+    },
+  },
+});
+```
+
 ## API
 
 ### Send message
 
-Either use `gotify()` or instantiate `new Gotify`.
+Either use `gotify()` or instantiate `new Gotify()`.
 
 Fields:
 
-- `server` (required): the server your are using, eg. "http://gotify.example.com"
+- `server` (required): the server you are using, eg. "http://gotify.example.com"
 - `app` (required): this is the application token that you get when creating an application
 - `message` (required): the message's title
 - `title` (optional): the message's title
 - `priority` (optional): the message's priority. On my Android phone, priority>=4 will trigger the notification **sound/vibrate**, less will just display the notification bubble.
+- `extras` (optional): the message's extras as defined [in the documentation](https://gotify.net/docs/msgextras)
 
-## TODO
+## TODO/MAYBE
 
-- [ ] [Markdown](https://gotify.net/docs/msgextras#clientdisplay)
-- [ ] [Message Extras](https://gotify.net/docs/msgextras)
+- [ ] ? [Set Markdown with a flag: `markdown: true`](https://gotify.net/docs/msgextras#clientdisplay)
 - [ ] ? Could specify the application token in the `Gotify` class to not pass it when sending a message
 - [ ] ? Support for custom http client (put `got` as a peerDependency and provides example with node-fetch and axios)
