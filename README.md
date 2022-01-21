@@ -9,6 +9,22 @@
 [![Version](https://img.shields.io/npm/v/gotify.svg?style=for-the-badge)](https://www.npmjs.com/package/gotify)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/tomsquest/gotify/check?style=for-the-badge)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+## Table of contents
+
+- [What is it](#what-is-it)
+- [Why](#why)
+- [Changelog](#changelog)
+- [Install](#install)
+- [Usage](#usage)
+- [API](#api)
+  - [Send message](#send-message)
+- [TODO/MAYBE](#todomaybe)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## What is it
 
 This module is a Node.js client for [Gotify](https://gotify.net/), a simple server for sending and receiving messages.
